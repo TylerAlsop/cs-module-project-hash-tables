@@ -66,6 +66,8 @@ class HashTable:
         #     hash = hash xor octet of data
         # return hash
 
+        ## "xor" in python is ^
+
         # FNV_prime for 64 bit is:
         #     2^40 + 2^8 + 0xb3 (1099511628211)
         
@@ -73,14 +75,14 @@ class HashTable:
         #     14695981039346656037
 
         ########### Actual Code ###########
-        FNV_prime = 2^40 + 2^8 + 0xb3
+        FNV_prime = 2**40 + 2**8 + 0xb3
         offest_basis = 14695981039346656037
 
         hash = offest_basis
 
         for character in key:
             hash = hash * FNV_prime
-            hash = hash xor character
+            hash = hash ^ character
         return hash
 
 
