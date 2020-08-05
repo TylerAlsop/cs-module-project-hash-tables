@@ -23,6 +23,7 @@ class HashTable:
     def __init__(self, capacity):
         # Your code here
         self.capacity = capacity
+        self.hash_table = [None] * capacity
 
 
     def get_num_slots(self):
@@ -36,6 +37,8 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        # self.capacity = len(HashTable)
+        return self.capacity
 
 
     def get_load_factor(self):
@@ -55,6 +58,20 @@ class HashTable:
         """
 
         # Your code here
+        ########### Psuedo Code ###########
+        # hash = offest_basis
+
+        # for each octet of data to be hashed:
+        #     hash = hash * FNV_prime
+        #     hash = hash xor octet of data
+        # return hash
+
+        # FNV_prime for 64 bit is:
+        #     2^40 + 2^8 + 0xb3 (1099511628211)
+        
+        # offest_basis for 64 bit is:
+        #     14695981039346656037
+
 
 
     def djb2(self, key):
@@ -64,6 +81,8 @@ class HashTable:
         Implement this, and/or FNV-1.
         """
         # Your code here
+        ########### Psuedo Code ###########
+
 
 
     def hash_index(self, key):
