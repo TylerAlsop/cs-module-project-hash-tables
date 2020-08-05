@@ -72,6 +72,16 @@ class HashTable:
         # offest_basis for 64 bit is:
         #     14695981039346656037
 
+        ########### Actual Code ###########
+        FNV_prime = 2^40 + 2^8 + 0xb3
+        offest_basis = 14695981039346656037
+
+        hash = offest_basis
+
+        for character in key:
+            hash = hash * FNV_prime
+            hash = hash xor character
+        return hash
 
 
     def djb2(self, key):
