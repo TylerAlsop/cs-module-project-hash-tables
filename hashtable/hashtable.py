@@ -78,12 +78,12 @@ class HashTable:
         FNV_prime = 2**40 + 2**8 + 0xb3
         offest_basis = 14695981039346656037
 
+
         hash = offest_basis
 
         for character in key:
             hash = hash * FNV_prime
             hash = hash ^ character
-        print("")
         return hash
 
 
@@ -110,8 +110,8 @@ class HashTable:
         Take an arbitrary key and return a valid integer index
         between within the storage capacity of the hash table.
         """
-        #return self.fnv1(key) % self.capacity
-        return self.djb2(key) % self.capacity
+        return self.fnv1(key) % self.capacity
+        # return self.djb2(key) % self.capacity
 
     def put(self, key, value):
         """
@@ -134,7 +134,7 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        self.hash_table[self.hash_index(key)].delete()
+        self.hash_table[self.hash_index(key)] = None
 
 
     def get(self, key):
@@ -146,7 +146,7 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        self.hash_table[self.hash_index(key)]
+        return self.hash_table[self.hash_index(key)]
 
 
     def resize(self, new_capacity):
