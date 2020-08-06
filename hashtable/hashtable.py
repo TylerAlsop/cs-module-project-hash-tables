@@ -77,11 +77,11 @@ class HashTable:
         ########### Actual Code ###########
         FNV_prime = 2**40 + 2**8 + 0xb3
         offest_basis = 14695981039346656037
-
+        key_encoded = key.encode()
 
         hash = offest_basis
 
-        for character in key:
+        for character in key_encoded:
             hash = hash * FNV_prime
             hash = hash ^ character
         return hash
@@ -134,7 +134,11 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        self.hash_table[self.hash_index(key)] = None
+        if (self.hash_table[self.hash_index(key)] == None):
+            print("Error: The key you are looking for does not exist.")
+            return
+        else:
+            self.hash_table[self.hash_index(key)] = None
 
 
     def get(self, key):
@@ -146,7 +150,10 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        return self.hash_table[self.hash_index(key)]
+        if (self.hash_table[self.hash_index(key)] == None):
+            return None
+        else:
+            return self.hash_table[self.hash_index(key)]
 
 
     def resize(self, new_capacity):
