@@ -83,7 +83,9 @@ class HashTable:
         for character in key:
             hash = hash * FNV_prime
             hash = hash ^ character
+        print("")
         return hash
+
 
 
     def djb2(self, key):
@@ -95,6 +97,12 @@ class HashTable:
         # Your code here
         ########### Psuedo Code ###########
 
+
+        ########### Actual Code ###########
+        hash = 5381
+        for character in key:
+            hash = (( hash << 5) + hash) + ord(character)
+        return hash & 0xFFFFFFFF
 
 
     def hash_index(self, key):
@@ -114,6 +122,7 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        self.hash_table[self.hash_index(key)] = value
 
 
     def delete(self, key):
@@ -125,6 +134,7 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        self.hash_table[self.hash_index(key)].delete()
 
 
     def get(self, key):
@@ -136,6 +146,7 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        self.hash_table[self.hash_index(key)]
 
 
     def resize(self, new_capacity):
