@@ -59,20 +59,20 @@ class HashTable:
 
         # Your code here
         ########### Psuedo Code ###########
+        # offest_basis for 64 bit is:  14695981039346656037
         # hash = offest_basis
+
+        # FNV_prime for 64 bit is:  2^40 + 2^8 + 0xb3 (1099511628211)
+
+        # encode (convert) each charactrer into UTF-8 numbers.
 
         # for each octet of data to be hashed:
         #     hash = hash * FNV_prime
         #     hash = hash xor octet of data
         # return hash
 
-        ## "xor" in python is ^
+        # "xor" in python is ^
 
-        # FNV_prime for 64 bit is:
-        #     2^40 + 2^8 + 0xb3 (1099511628211)
-        
-        # offest_basis for 64 bit is:
-        #     14695981039346656037
 
         ########### Actual Code ###########
         FNV_prime = 2**40 + 2**8 + 0xb3
