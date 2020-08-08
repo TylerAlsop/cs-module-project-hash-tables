@@ -176,13 +176,18 @@ class HashTable:
 
         current_node = hash_table[index]
 
-        if (self.get(key) == None):
-            print("Error: The key you are looking for does not exist.")
+        if current_node.key == key:
+            #******** How to remove this node???? ********#
+            self.number_of_items -= 1
             return
         
-        while (current_node is not None) and (current_node.key != key):
+        while current_node is not None and current_node.key != key:
             previous_node = current_node
             current_node = current_node.next
+
+        if current_node is None:
+            print("Error: The key you are looking for does not exist.")
+            return current_node
 
         previous_node.next = current_node.next
         self.number_of_items -= 1
