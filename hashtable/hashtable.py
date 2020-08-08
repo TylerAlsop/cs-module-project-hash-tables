@@ -53,7 +53,16 @@ class HashTable:
         load_factor = self.items/self.capacity
         return load_factor
 
+    def linked_list_find(self, key):
+        current_node = self.head
 
+        while current_node is not None:
+            if current_node.key == key:
+                return current_node
+            current_node.next
+
+        return None
+        
     def fnv1(self, key):
         """
         FNV-1 Hash, 64-bit
