@@ -53,20 +53,20 @@ class HashTable:
         load_factor = self.items/self.capacity
         return load_factor
 
-    def linked_list_find(self, key):
+    def linked_list_find(self, value):
         current_node = self.head
 
         while current_node is not None:
-            if current_node.key == key:
+            if current_node.value == value:
                 return current_node
             current_node.next
 
         return None
 
-    def linked_list_delete(self, key):
+    def linked_list_delete(self, value):
         current_node = self.head
 
-        if current_node.key == key:
+        if current_node.value == value:
             self.head = current_node.next
             return current_node
 
@@ -74,7 +74,7 @@ class HashTable:
         current_node = current_node.next
 
         while current_node is not None:
-            if current_node.key == key:
+            if current_node.value == value:
                 previous_node.next = current_node.next
                 return current_node
             else:
@@ -86,6 +86,14 @@ class HashTable:
     def linked_list_insert_at_head(self, node):
         node.next = self.head
         self.head = node
+
+    def linked_list_insert_or_overwrite_value(self, key, value):
+        node = self.linked_list_find(value)
+
+        if node is None:
+            self.linked_list_insert_at_head(HashTableEntry(key, value))
+        else:
+            node.value = value
 
     def fnv1(self, key):
         """
