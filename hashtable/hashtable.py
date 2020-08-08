@@ -147,6 +147,13 @@ class HashTable:
             previous_node = current_node
             current_node = current_node.next
 
+        if current_node.key == key:
+            print(f"The key, '{key},' has been found and will be updated with the new value you have chosen. New Value: '{value}'")
+            current_node.value == value
+        else:
+            previous_node.next = new_entry
+            self.number_of_items += 1
+
         
 
 
@@ -167,7 +174,7 @@ class HashTable:
         # else:
         #     self.hash_table[self.hash_index(key)] = None
 
-        ######## Without Collision Handling ########
+        ######## With Collision Handling ########
         index = self.hash_index(key)
         hash_table = self.hash_table
 
@@ -177,7 +184,7 @@ class HashTable:
             print("Error: The key you are looking for does not exist.")
             return
         
-        while (current_node is not None) and (current_node.key != key)
+        while (current_node is not None) and (current_node.key != key):
             previous_node = current_node
             current_node = current_node.next
 
