@@ -62,7 +62,27 @@ class HashTable:
             current_node.next
 
         return None
-        
+
+    def linked_list_delete(self, key):
+        current_node = self.head
+
+        if current_node.key == key:
+            self.head = current_node.next
+            return current_node
+
+        previous_node = current_node
+        current_node = current_node.next
+
+        while current_node is not None:
+            if current_node.key == key:
+                previous_node.next = current_node.next
+                return current_node
+            else:
+                previous_node = current_node
+                current_node = current_node.next
+
+        return None
+
     def fnv1(self, key):
         """
         FNV-1 Hash, 64-bit
