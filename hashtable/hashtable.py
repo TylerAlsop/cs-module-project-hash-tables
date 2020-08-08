@@ -150,7 +150,7 @@ class HashTable:
         if current_node is None:
             previous_node.next = new_entry
             self.number_of_items += 1
-        else:
+        elif current_node.key == key:
             print(f"The key, '{key},' has been found and will be updated with the new value you have chosen. New Value: '{value}'")
             current_node.value == value
 
@@ -177,7 +177,7 @@ class HashTable:
         current_node = hash_table[index]
 
         if current_node.key == key:
-            #******** How to remove this node???? ********#
+            hash_table[index] = current_node.next
             self.number_of_items -= 1
             return
         
