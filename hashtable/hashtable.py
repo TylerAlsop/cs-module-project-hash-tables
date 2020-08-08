@@ -24,7 +24,7 @@ class HashTable:
         # Your code here
         self.capacity = capacity
         self.hash_table = [None] * capacity
-        self.items = 0
+        self.number_of_items = 0
         self.head = None
 
 
@@ -53,47 +53,6 @@ class HashTable:
         load_factor = self.items/self.capacity
         return load_factor
 
-    def linked_list_find(self, value):
-        current_node = self.head
-
-        while current_node is not None:
-            if current_node.value == value:
-                return current_node
-            current_node.next
-
-        return None
-
-    def linked_list_delete(self, value):
-        current_node = self.head
-
-        if current_node.value == value:
-            self.head = current_node.next
-            return current_node
-
-        previous_node = current_node
-        current_node = current_node.next
-
-        while current_node is not None:
-            if current_node.value == value:
-                previous_node.next = current_node.next
-                return current_node
-            else:
-                previous_node = current_node
-                current_node = current_node.next
-
-        return None
-
-    def linked_list_insert_at_head(self, node):
-        node.next = self.head
-        self.head = node
-
-    def linked_list_insert_or_overwrite_value(self, key, value):
-        node = self.linked_list_find(value)
-
-        if node is None:
-            self.linked_list_insert_at_head(HashTableEntry(key, value))
-        else:
-            node.value = value
 
     def fnv1(self, key):
         """
@@ -210,7 +169,50 @@ class HashTable:
         """
         # Your code here
 
+##################### Linked List Functions #####################
 
+    def linked_list_find(self, key):
+        current_node = self.head
+
+        while current_node is not None:
+            if current_node.key == key:
+                return current_node
+            current_node.next
+
+        return None
+
+    def linked_list_delete(self, key):
+        current_node = self.head
+
+        if current_node.key == key:
+            self.head = current_node.next
+            return current_node
+
+        previous_node = current_node
+        current_node = current_node.next
+
+        while current_node is not None:
+            if current_node.key == key:
+                previous_node.next = current_node.next
+                return current_node
+            else:
+                previous_node = current_node
+                current_node = current_node.next
+
+        return None
+
+    def linked_list_insert_at_head(self, key, value):
+        node = HashTableEntry(key, value)
+        node.next = self.head
+        self.head = node
+
+    def linked_list_insert_or_overwrite_value(self, key, value):
+        node = self.linked_list_find(value)
+
+        if node is None:
+            self.linked_list_insert_at_head(HashTableEntry(key, value))
+        else:
+            node.value = value
 
 if __name__ == "__main__":
     ht = HashTable(8)
