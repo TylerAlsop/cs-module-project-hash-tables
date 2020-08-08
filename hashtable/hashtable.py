@@ -83,6 +83,10 @@ class HashTable:
 
         return None
 
+    def linked_list_insert_at_head(self, node):
+        node.next = self.head
+        self.head = node
+
     def fnv1(self, key):
         """
         FNV-1 Hash, 64-bit
