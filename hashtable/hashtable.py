@@ -147,16 +147,12 @@ class HashTable:
             previous_node = current_node
             current_node = current_node.next
 
-        if current_node.key == key:
-            print(f"The key, '{key},' has been found and will be updated with the new value you have chosen. New Value: '{value}'")
-            current_node.value == value
-        else:
+        if current_node is None:
             previous_node.next = new_entry
             self.number_of_items += 1
-
-        
-
-
+        else:
+            print(f"The key, '{key},' has been found and will be updated with the new value you have chosen. New Value: '{value}'")
+            current_node.value == value
 
     def delete(self, key):
         """
@@ -180,7 +176,7 @@ class HashTable:
 
         current_node = hash_table[index]
 
-        if (self.get() == None):
+        if (self.get(key) == None):
             print("Error: The key you are looking for does not exist.")
             return
         
@@ -212,14 +208,15 @@ class HashTable:
 
         current_node = hash_table[index]
 
-        if (current_node == None):
-            return None
         while current_node is not None:
             if current_node.key == key:
-                return current_node
+                return current_node.value
             else:
                 current_node = current_node.next
-        # return current_node
+                
+        if (current_node == None):
+            return None
+        return current_node.value
 
     def resize(self, new_capacity):
         """
