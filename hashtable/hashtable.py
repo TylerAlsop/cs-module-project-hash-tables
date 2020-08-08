@@ -126,7 +126,29 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        self.hash_table[self.hash_index(key)] = value
+        ######## Without Collision Handling ########
+        # index = self.hash_index(key)
+        # self.hash_table[index] = value
+
+        ######## With Collision Handling ########
+        new_entry = HashTableEntry(key, value)
+
+        hash_table = self.hash_table
+        index = self.hash_index(key)
+
+        current_node = hash_table[index]
+
+        if current_node is None:
+            hash_table[index] = new_entry
+            self.number_of_items += 1
+            return
+        
+        while current_node is not None and current_node.key != key:
+            previous_node = current_node
+            current_node = current_node.next
+
+        
+
 
 
     def delete(self, key):
@@ -154,11 +176,26 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        if (self.hash_table[self.hash_index(key)] == None):
-            return None
-        else:
-            return self.hash_table[self.hash_index(key)]
+        ######## Without Collision Handling ########
+        # if (self.hash_table[self.hash_index(key)] == None):
+        #     return None
+        # else:
+        #     return self.hash_table[self.hash_index(key)]
 
+        ######## With Collision Handling ########
+        index = self.hash_index(key)
+        hash_table = self.hash_table
+
+        current_node = hash_table[index]
+
+        if (current_node == None):
+            return None
+        while current_node is not None:
+            if current_node.key == key:
+                return current_node
+            else:
+                current_node = current_node.next
+        # return current_node
 
     def resize(self, new_capacity):
         """
