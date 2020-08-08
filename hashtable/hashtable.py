@@ -24,6 +24,7 @@ class HashTable:
         # Your code here
         self.capacity = capacity
         self.hash_table = [None] * capacity
+        self.items = 0
         self.head = None
 
 
@@ -49,6 +50,8 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        load_factor = self.items/self.capacity
+        return load_factor
 
 
     def fnv1(self, key):
