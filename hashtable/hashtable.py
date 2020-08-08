@@ -160,12 +160,29 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        if (self.hash_table[self.hash_index(key)] == None):
+        ######## Without Collision Handling ########
+        # if (self.hash_table[self.hash_index(key)] == None):
+        #     print("Error: The key you are looking for does not exist.")
+        #     return
+        # else:
+        #     self.hash_table[self.hash_index(key)] = None
+
+        ######## Without Collision Handling ########
+        index = self.hash_index(key)
+        hash_table = self.hash_table
+
+        current_node = hash_table[index]
+
+        if (self.get() == None):
             print("Error: The key you are looking for does not exist.")
             return
-        else:
-            self.hash_table[self.hash_index(key)] = None
+        
+        while (current_node is not None) and (current_node.key != key)
+            previous_node = current_node
+            current_node = current_node.next
 
+        previous_node.next = current_node.next
+        self.number_of_items -= 1
 
     def get(self, key):
         """
