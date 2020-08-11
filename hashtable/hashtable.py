@@ -150,7 +150,7 @@ class HashTable:
         if current_node is None:
             previous_node.next = new_entry
             self.number_of_items += 1
-        elif current_node.key == key:
+        else:
             print(f"The key, '{key},' has been found and will be updated with the new value you have chosen. New Value: '{value}'")
             current_node.value == value
 
@@ -231,51 +231,8 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        
 
-##################### Linked List Functions #####################
-
-    def linked_list_find(self, key):
-        current_node = self.head
-
-        while current_node is not None:
-            if current_node.key == key:
-                return current_node
-            current_node.next
-
-        return None
-
-    def linked_list_delete(self, key):
-        current_node = self.head
-
-        if current_node.key == key:
-            self.head = current_node.next
-            return current_node
-
-        previous_node = current_node
-        current_node = current_node.next
-
-        while current_node is not None:
-            if current_node.key == key:
-                previous_node.next = current_node.next
-                return current_node
-            else:
-                previous_node = current_node
-                current_node = current_node.next
-
-        return None
-
-    def linked_list_insert_at_head(self, key, value):
-        node = HashTableEntry(key, value)
-        node.next = self.head
-        self.head = node
-
-    def linked_list_insert_or_overwrite_value(self, key, value):
-        node = self.linked_list_find(value)
-
-        if node is None:
-            self.linked_list_insert_at_head(HashTableEntry(key, value))
-        else:
-            node.value = value
 
 if __name__ == "__main__":
     ht = HashTable(8)
