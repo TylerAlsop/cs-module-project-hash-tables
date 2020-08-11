@@ -50,7 +50,7 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        load_factor = self.items/self.capacity
+        load_factor = self.number_of_items/self.capacity
         return load_factor
 
 
@@ -131,6 +131,14 @@ class HashTable:
         # self.hash_table[index] = value
 
         ######## With Collision Handling ########
+        current_load_factor = self.get_load_factor()
+
+        if current_load_factor >= 0.7:
+            self.resize(2)
+        
+        if current_load_factor <= 0.2:
+            self.resize(0.5)
+
         new_entry = HashTableEntry(key, value)
 
         hash_table = self.hash_table
@@ -139,7 +147,7 @@ class HashTable:
         current_node = hash_table[index]
 
         if current_node is None:
-            hash_table[index] = new_entry
+            current_node = new_entry
             self.number_of_items += 1
             return
         
@@ -231,6 +239,30 @@ class HashTable:
         Implement this.
         """
         # Your code here
+####################### Resize So Number of Slots Is Multiplied By Input #######################
+        # resized_hash_table = [None] * (self.capacity * int(new_capacity))
+
+        # for i in range(len(self.hash_table)):
+        #     current_node = self.hash_table[i]
+
+        #     while current_node is not None:
+        #         index = self.hash_index(current_node.key)
+        #         resized_hash_table[index] = current_node
+        #         current_node = current_node.next
+        # self.hash_table = resized_hash_table
+
+####################### Resize So Number of Slots Equals Input #######################
+
+        resized_hash_table = [None] * int(new_capacity)
+
+        for i in range(len(self.hash_table)):
+            current_node = self.hash_table[i]
+
+            while current_node is not None:
+                index = self.hash_index(current_node.key)
+                resized_hash_table[index] = current_node
+                current_node = current_node.next
+        self.hash_table = resized_hash_table
         
 
 
