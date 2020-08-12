@@ -134,10 +134,7 @@ class HashTable:
         current_load_factor = self.get_load_factor()
 
         if current_load_factor >= 0.7:
-            self.resize(2)
-        
-        if current_load_factor <= 0.2:
-            self.resize(0.5)
+            self.resize( self.capacity * 2 )
 
         new_entry = HashTableEntry(key, value)
 
@@ -199,6 +196,11 @@ class HashTable:
 
         previous_node.next = current_node.next
         self.number_of_items -= 1
+
+        current_load_factor = self.get_load_factor()
+
+        if current_load_factor <= 0.2:
+            self.resize( self.capacity * 0.5 )
 
     def get(self, key):
         """
