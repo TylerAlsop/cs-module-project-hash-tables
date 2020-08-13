@@ -131,10 +131,10 @@ class HashTable:
         # self.hash_table[index] = value
 
         ######## With Collision Handling ########
-        current_load_factor = self.get_load_factor()
+        # current_load_factor = self.get_load_factor()
 
-        if current_load_factor >= 0.7:
-            self.resize( self.capacity * 2 )
+        # if current_load_factor >= 0.7:
+        #     self.resize( self.capacity * 2 )
 
         new_entry = HashTableEntry(key, value)
 
@@ -145,19 +145,16 @@ class HashTable:
 
         if current_node is None:
             current_node = new_entry
-            self.number_of_items += 1
-            return
-        
-        while current_node is not None and current_node.key != key:
-            previous_node = current_node
-            current_node = current_node.next
-
-        if current_node is None:
-            previous_node.next = new_entry
-            self.number_of_items += 1
         else:
-            print(f"The key, '{key},' has been found and will be updated with the new value you have chosen. New Value: '{value}'")
-            current_node.value == value
+            while current_node is not None:
+                if current_node.key == key:
+                    print(f"The key, '{key},' has been found and will be updated with the new value you have chosen. New Value: '{value}'")
+                    current_node.value = value
+                    return
+                elif current_node.next is None: #last
+                    current_node.next = new_entry
+                    return
+                current_node = current_node.next
 
     def delete(self, key):
         """
