@@ -131,10 +131,10 @@ class HashTable:
         # self.hash_table[index] = value
 
         ######## With Collision Handling ########
-        current_load_factor = self.get_load_factor()
+        # current_load_factor = self.get_load_factor()
 
-        if current_load_factor >= 0.7:
-            self.resize( self.capacity * 2 )
+        # if current_load_factor >= 0.7:
+        #     self.resize( self.capacity * 2 )
 
         new_entry = HashTableEntry(key, value)
 
