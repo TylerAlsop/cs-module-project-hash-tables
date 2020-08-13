@@ -88,7 +88,7 @@ class HashTable:
             offest_basis = offest_basis ^ character
 
         hash = offest_basis
-        
+
         return hash
 
 
@@ -139,10 +139,9 @@ class HashTable:
 
         new_entry = HashTableEntry(key, value)
 
-        hash_table = self.hash_table
         index = self.hash_index(key)
 
-        current_node = hash_table[index]
+        current_node = self.hash_table[index]
 
         if current_node is None:
             current_node = new_entry
@@ -152,7 +151,7 @@ class HashTable:
                     print(f"The key, '{key},' has been found and will be updated with the new value you have chosen. New Value: '{value}'")
                     current_node.value = value
                     return
-                elif current_node.next is None: #last
+                elif current_node.next is None:
                     current_node.next = new_entry
                     return
                 current_node = current_node.next
@@ -224,12 +223,9 @@ class HashTable:
         while current_node is not None:
             if current_node.key == key:
                 return current_node.value
-            else:
-                current_node = current_node.next
+            current_node = current_node.next
                 
-        if (current_node == None):
-            return None
-        return current_node.value
+        return None
 
     def resize(self, new_capacity):
         """
