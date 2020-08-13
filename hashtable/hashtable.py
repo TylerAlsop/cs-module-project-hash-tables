@@ -79,15 +79,16 @@ class HashTable:
 
 
         ########### Actual Code ###########
-        FNV_prime = 2**40 + 2**8 + 0xb3
+        FNV_prime = 1099511628211
         offest_basis = 14695981039346656037
         key_encoded = key.encode()
 
-        hash = offest_basis
-
         for character in key_encoded:
-            hash = hash * FNV_prime
-            hash = hash ^ character
+            offest_basis = offest_basis * FNV_prime
+            offest_basis = offest_basis ^ character
+
+        hash = offest_basis
+        
         return hash
 
 
