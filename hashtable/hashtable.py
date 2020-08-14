@@ -134,10 +134,10 @@ class HashTable:
         # self.hash_table[index] = value
 
         ######## With Collision Handling ########
-        current_load_factor = self.get_load_factor()
+        # current_load_factor = self.get_load_factor()
 
-        if current_load_factor >= 0.7:
-            self.resize( self.capacity * 2 )
+        # if current_load_factor >= 0.7:
+        #     self.resize( self.capacity * 2 )
 
         index = self.hash_index(key)
         new_entry = HashTableEntry(key, value)
@@ -146,7 +146,7 @@ class HashTable:
 
         if current_node is None:
             self.hash_table[index] = new_entry
-            # self.number_of_items += 1
+            self.number_of_items += 1
             return
 
         while current_node is not None and current_node.key != key:
@@ -155,10 +155,9 @@ class HashTable:
 
         if current_node is None:
             prev.next = new_entry
-            # self.number_of_items += 1
+            self.number_of_items += 1
 
         else:
-            # The key was found, so update the value
             current_node.value = value
 
 
@@ -198,10 +197,10 @@ class HashTable:
         previous_node.next = self.hash_table[index].next
         self.number_of_items -= 1
 
-        current_load_factor = self.get_load_factor()
+        # current_load_factor = self.get_load_factor()
 
-        if current_load_factor <= 0.2:
-            self.resize( self.capacity * 0.5 )
+        # if current_load_factor <= 0.2:
+        #     self.resize( self.capacity * 0.5 )
 
 
     def get(self, key):
