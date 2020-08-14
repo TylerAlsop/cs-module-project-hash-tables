@@ -2,6 +2,9 @@
 ### Need to import "math" and "random" python libriaries
 import math, random
 
+lookup_table = {}
+
+
 def slowfun_too_slow(x, y):
     v = math.pow(x, y)
     v = math.factorial(v)
@@ -25,17 +28,15 @@ def slowfun(x, y):
             # It returns that variable "v"
     # P.
         # Create a lookup_table
-    lookup_table = {}
 
         # Check to see if (x, y) exists as a key in the lookup_table.
             # If it does not exist then add the result of slowfun_too_slow(x, y) to the lookup_table using the key (x, y)
-
-    if (x, y) not in lookup_table:
-        lookup_table[(x, y)] = int(slowfun_too_slow(x, y))
-
+    input_numbers = (x, y)
+    if input_numbers not in lookup_table:
+        lookup_table[input_numbers] = slowfun_too_slow(x, y)
 
         # If it does exist then return the value of the lookup_table[(x, y)]
-    return lookup_table[(x, y)]
+    return lookup_table[input_numbers]
 
 
 
