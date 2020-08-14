@@ -26,13 +26,15 @@ def slowfun(x, y):
     # P.
         # Create a lookup_table
     lookup_table = {}
+
         # Check to see if (x, y) exists as a key in the lookup_table.
             # If it does not exist then add the result of slowfun_too_slow(x, y) to the lookup_table using the key (x, y)
 
     if (x, y) not in lookup_table:
         lookup_table[(x, y)] = int(slowfun_too_slow(x, y))
 
-        # Return the value of the lookup_table[(x, y)]
+
+        # If it does exist then return the value of the lookup_table[(x, y)]
     return lookup_table[(x, y)]
 
 
