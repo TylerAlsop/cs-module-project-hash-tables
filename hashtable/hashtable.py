@@ -134,10 +134,9 @@ class HashTable:
         # self.hash_table[index] = value
 
         ######## With Collision Handling ########
-        # current_load_factor = self.get_load_factor()
-
-        # if current_load_factor >= 0.7:
-        #     self.resize( self.capacity * 2 )
+        # print(self.get_load_factor())
+        if self.get_load_factor() >= 0.7:
+            self.resize( self.capacity * 2 )
 
         index = self.hash_index(key)
         new_entry = HashTableEntry(key, value)
@@ -252,9 +251,11 @@ class HashTable:
 
         ####################### Resize So Number of Slots Equals Input #######################
 
-        resized_hash_table = [None] * int(new_capacity)
+        resized_hash_table = [None] * new_capacity
+        old_capacity = self.capacity
+        self.capacity = new_capacity
 
-        for i in range(len(self.hash_table)):
+        for i in range(old_capacity):
             current_node = self.hash_table[i]
 
             while current_node is not None:
