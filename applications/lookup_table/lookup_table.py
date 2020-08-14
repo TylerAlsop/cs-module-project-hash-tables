@@ -25,18 +25,15 @@ def slowfun(x, y):
             # It returns that variable "v"
     # P.
         # Create a lookup_table
-    lookup_table = { math.pow(x, y) }
+    lookup_table = {}
+        # Check to see if (x, y) exists as a key in the lookup_table.
+            # If it does not exist then add the result of slowfun_too_slow(x, y) to the lookup_table using the key (x, y)
 
-        # Push the result of the first math function into the lookup_table
+    if (x, y) not in lookup_table:
+        lookup_table[(x, y)] = int(slowfun_too_slow(x, y))
 
-        # Access that item and perform the next math function on it and resaves it.
-        # Repeat until all math functions are done.
-    for i in lookup_table:
-        math.factorial(i)
-        i //= (x + y)
-        i %= 982451653
-        # Return the lookup table.
-        return i
+        # Return the value of the lookup_table[(x, y)]
+    return lookup_table[(x, y)]
 
 
 
