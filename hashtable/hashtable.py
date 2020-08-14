@@ -139,22 +139,29 @@ class HashTable:
         if current_load_factor >= 0.7:
             self.resize( self.capacity * 2 )
 
+        index = self.hash_index(key)
         new_entry = HashTableEntry(key, value)
 
-        index = self.hash_index(key)
-        
-        if self.hash_table[index] is None:
+        current_node = self.hash_table[index]
+
+        if current_node is None:
             self.hash_table[index] = new_entry
+            # self.number_of_items += 1
+            return
+
+        while current_node is not None and current_node.key != key:
+            prev = current_node
+            current_node = current_node.next
+
+        if current_node is None:
+            prev.next = new_entry
+            # self.number_of_items += 1
+
         else:
-            current_node = self.hash_table[index]
-            while current_node is not None:
-                if current_node.key == key:
-                    current_node.value = value 
-                    return
-                if current_node.next is None:
-                    current_node.next = new_entry
-                    return
-                current_node = current_node.next
+            # The key was found, so update the value
+            current_node.value = value
+
+
 
     def delete(self, key):
         """
