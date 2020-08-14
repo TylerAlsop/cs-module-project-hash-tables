@@ -25,10 +25,10 @@ def slowfun(x, y):
             # It returns that variable "v"
     # P.
         # Create a lookup_table
-    lookup_table = {}
+    lookup_table = { math.pow(x, y) }
 
         # Push the result of the first math function into the lookup_table
-    lookup_table[0] = (math.pow(x, y))
+
         # Access that item and perform the next math function on it and resaves it.
         # Repeat until all math functions are done.
     for i in lookup_table:
