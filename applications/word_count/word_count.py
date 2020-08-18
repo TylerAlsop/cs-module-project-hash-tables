@@ -4,9 +4,19 @@ def word_count(s):
     # Your code here
     words = {}
     punctuation_to_ignore = '''":;,.-+=/\|[]{}()*^&'''
+    # punctuation_count = 0
 
 
 ################### With Python ###################
+    # for character in s:
+    #     if character in punctuation_to_ignore:
+    #         punctuation_count += 1
+    
+    # if punctuation_count == 0:
+    #     return {}
+
+    # if (punctuation in punctuation_to_ignore) not in s:
+    #     return {}
 
     lowercase_string = s.lower()
 
@@ -18,6 +28,8 @@ def word_count(s):
 
     split_string = lowercase_string.split()
 
+    return split_string
+
 
 
 ################### With Regex ###################
@@ -27,8 +39,6 @@ def word_count(s):
 ##################################################
 
 
-
-    print(split_string)
 
     
 
