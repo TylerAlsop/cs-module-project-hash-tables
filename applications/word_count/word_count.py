@@ -1,5 +1,3 @@
-import re
-
 def word_count(s):
     # Your code here
     words = {}
@@ -28,19 +26,14 @@ def word_count(s):
 
     split_string = lowercase_string.split()
 
-    return split_string
+    for word in split_string:
+        if word not in words:
+            words[word] = 1
+        else:
+            words[word] += 1
 
+    return words
 
-
-################### With Regex ###################
-
-    # split_string = re.findall(r'\w+', s)
-
-##################################################
-
-
-
-    
 
 
 if __name__ == "__main__":
