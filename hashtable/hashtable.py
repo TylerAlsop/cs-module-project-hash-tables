@@ -22,6 +22,14 @@ class HashTable:
 
     def __init__(self, capacity):
         # Your code here
+        if capacity < MIN_CAPACITY:
+            capacity = MIN_CAPACITY
+
+        self.capacity = capacity
+        self.hash_table = [None] * capacity
+        self.number_of_items = 0
+
+
 
 
     def get_num_slots(self):
@@ -35,6 +43,7 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        return self.capacity
 
 
     def get_load_factor(self):
@@ -44,6 +53,8 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        load_factor = self.number_of_items/self.capacity
+        return load_factor
 
 
     def fnv1(self, key):
@@ -54,6 +65,34 @@ class HashTable:
         """
 
         # Your code here
+        ########### Psuedo Code ###########
+        # offest_basis for 64 bit is:  14695981039346656037
+        # hash = offest_basis
+
+        # FNV_prime for 64 bit is:  2^40 + 2^8 + 0xb3 (1099511628211)
+
+        # encode (convert) each charactrer into UTF-8 numbers.
+
+        # for each octet of data to be hashed:
+        #     hash = hash * FNV_prime
+        #     hash = hash xor octet of data
+        # return hash
+
+        # "xor" in python is ^
+
+
+        ########### Actual Code ###########
+        FNV_prime = 1099511628211
+        offest_basis = 14695981039346656037
+        key_encoded = key.encode()
+
+        for character in key_encoded:
+            offest_basis = offest_basis * FNV_prime
+            offest_basis = offest_basis ^ character
+
+        hash = offest_basis
+
+        return hash
 
 
     def djb2(self, key):
@@ -63,6 +102,14 @@ class HashTable:
         Implement this, and/or FNV-1.
         """
         # Your code here
+        ########### Psuedo Code ###########
+
+
+        ########### Actual Code ###########
+        hash = 5381
+        for character in key:
+            hash = (( hash << 5) + hash) + ord(character)
+        return hash & 0xFFFFFFFF
 
 
     def hash_index(self, key):
@@ -70,8 +117,8 @@ class HashTable:
         Take an arbitrary key and return a valid integer index
         between within the storage capacity of the hash table.
         """
-        #return self.fnv1(key) % self.capacity
-        return self.djb2(key) % self.capacity
+        return self.fnv1(key) % self.capacity
+        # return self.djb2(key) % self.capacity
 
     def put(self, key, value):
         """
@@ -82,6 +129,37 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        ######## Without Collision Handling ########
+        # index = self.hash_index(key)
+        # self.hash_table[index] = value
+
+        ######## With Collision Handling ########
+        # current_load_factor = self.get_load_factor()
+
+        # if current_load_factor >= 0.7:
+        #     self.resize( self.capacity * 2 )
+
+        index = self.hash_index(key)
+        new_entry = HashTableEntry(key, value)
+
+        current_node = self.hash_table[index]
+
+        if current_node is None:
+            self.hash_table[index] = new_entry
+            self.number_of_items += 1
+            return
+
+        while current_node is not None and current_node.key != key:
+            prev = current_node
+            current_node = current_node.next
+
+        if current_node is None:
+            prev.next = new_entry
+            self.number_of_items += 1
+
+        else:
+            current_node.value = value
+
 
 
     def delete(self, key):
@@ -93,6 +171,36 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        ######## Without Collision Handling ########
+        # if (self.hash_table[self.hash_index(key)] == None):
+        #     print("Error: The key you are looking for does not exist.")
+        #     return
+        # else:
+        #     self.hash_table[self.hash_index(key)] = None
+
+        ######## With Collision Handling ########
+        index = self.hash_index(key)
+
+        if self.hash_table[index].key == key:
+            self.hash_table[index] = self.hash_table[index].next
+            self.number_of_items -= 1
+            return
+        
+        while self.hash_table[index] is not None and self.hash_table[index].key != key:
+            previous_node = self.hash_table[index]
+            self.hash_table[index] = self.hash_table[index].next
+
+        if self.hash_table[index] is None:
+            print("Error: The key you are looking for does not exist.")
+            return self.hash_table[index]
+
+        previous_node.next = self.hash_table[index].next
+        self.number_of_items -= 1
+
+        # current_load_factor = self.get_load_factor()
+
+        # if current_load_factor <= 0.2:
+        #     self.resize( self.capacity * 0.5 )
 
 
     def get(self, key):
@@ -104,7 +212,23 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        ######## Without Collision Handling ########
+        # if (self.hash_table[self.hash_index(key)] == None):
+        #     return None
+        # else:
+        #     return self.hash_table[self.hash_index(key)]
 
+        ######## With Collision Handling ########
+        index = self.hash_index(key)
+
+        current_node = self.hash_table[index]
+
+        while current_node is not None:
+            if current_node.key == key:
+                return current_node.value
+            current_node = current_node.next
+                
+        return None
 
     def resize(self, new_capacity):
         """
@@ -114,6 +238,30 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        ####################### Resize So Number of Slots Is Multiplied By Input #######################
+        # resized_hash_table = [None] * (self.capacity * int(new_capacity))
+
+        # for i in range(len(self.hash_table)):
+        #     current_node = self.hash_table[i]
+
+        #     while current_node is not None:
+        #         index = self.hash_index(current_node.key)
+        #         resized_hash_table[index] = current_node
+        #         current_node = current_node.next
+        # self.hash_table = resized_hash_table
+
+        ####################### Resize So Number of Slots Equals Input #######################
+
+        resized_hash_table = [None] * int(new_capacity)
+
+        for i in range(len(self.hash_table)):
+            current_node = self.hash_table[i]
+
+            while current_node is not None:
+                index = self.hash_index(current_node.key)
+                resized_hash_table[index] = current_node
+                current_node = current_node.next
+        self.hash_table = resized_hash_table
 
 
 
